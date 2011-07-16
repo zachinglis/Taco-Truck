@@ -1,0 +1,11 @@
+#! /usr/bin/env ruby -rubygems
+
+# Dir["../lib/*.rb"].each {|file| require file }
+# require File.join(File.dirname(__FILE__), "..", "lib", "monk")
+require File.join(File.dirname(__FILE__), "..", "lib", "taco-truck")
+
+Dir["../lib/*.rb"].each do |file|
+  require file
+end
+
+TacoTruck.start

@@ -1,9 +1,17 @@
-= taco-truck
+= Taco Truck (taco-truck)
 
-Description goes here.
+Taco Truck is a gem that helps creating base applications and process gems with little customisation needed.
+
+== TODO
+
+* Command-line application
+* Create TacoSet file as a blueprint for apps
+* Generate function to build .taco recipe files
+* Autodetect Tacofile files in Gems
+* Online Server of Available Tacos
 
 == Contributing to taco-truck
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -17,3 +25,10 @@ Description goes here.
 Copyright (c) 2011 Zach Inglis. See LICENSE.txt for
 further details.
 
+
+# TacoTruck
+  # Set of Tacos/Tacoset
+  # Create TacoTruck (TacoSet)
+# Taco
+  # Example: rspec, crummy, etc
+  #
