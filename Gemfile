@@ -7,6 +7,7 @@ group :development do
   gem "rcov", ">= 0"
   gem 'rb-fsevent'
   gem "growl"
+  gem "spork"
   gem "guard-rspec"
 end
 

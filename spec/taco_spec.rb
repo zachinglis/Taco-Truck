@@ -60,7 +60,11 @@ describe "Taco" do
       }
     end
 
-    it "should respond with an error if no Taco is added"
+    it "should respond with an error if no argument is given" do
+      taco(:add, "").should match(/Please provide all arguments/)
+    end
+    
+    it "should only accept a valid git URI"
   end
 
   it "should not re-add a Taco if it exists"

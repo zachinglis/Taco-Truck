@@ -27,6 +27,7 @@ class TacoTruck < Thor
   method_option :uri,     :type => :string, :aliases => "-u"
   def add
     puts "Registering..."
+    return puts "Error: Please provide all arguments" if options[:uri].nil?
     File.open(taco_file, "a") do |file|
       file.write("\ntest|foo|bar")
     end
