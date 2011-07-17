@@ -39,13 +39,18 @@ class TacoTruck < Thor
     file = File.read(taco_file)
     file.each_line do |line|
       attributes = line.split("|")
-      puts "#{attributes[0]}  |  #{attributes[1]}  |  #{attributes[2]}"
+      puts attributes.join("  |  ")
     end
+    puts "No Tacos present" if file == ""
   end
 
 protected
   def taco_dir
-    RUBY_PLATFORM =~ /win32/ ? win32_cache_dir : File.join(File.expand_path("~"), ".taco")
+    if ENV["TACO_ENV"] == "test"
+      File.join(Dir.pwd, "spec/fixtures/taco")
+    else
+      File.join(Dir.home, ".taco")
+    end
   end
 
   def taco_file

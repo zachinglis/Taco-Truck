@@ -10,6 +10,8 @@ Taco Truck is a gem that helps creating base applications and process gems with 
 * Autodetect Tacofile files in Gems
 * Online Server of Available Tacos
 
+* Screencast when I announce the project.
+
 == Contributing to taco-truck
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet

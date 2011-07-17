@@ -3,7 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Taco" do
   describe "#list" do
     before(:all) do
+      create_test_environment
       @response = taco(:list)
+    end
+
+    after(:all) do
+      destroy_test_environment
     end
 
     it "should explain what it's doing" do
@@ -23,14 +28,41 @@ describe "Taco" do
     end
   end
 
-  it "can add Tacos" do
-    lambda do
-      taco(:add, "-u git://github.com/foo/bar")
-    end.should change {
-      taco(:list).lines.count
-    }
+  describe "#list" do
+    before(:all) do
+      create_test_environment(false)
+      @response = taco(:list)
+    end
+
+    after(:all) do
+      destroy_test_environment
+    end
+
+    it "should notify if there is no Tacos" do
+      @response.should match(/No Tacos present/)
+    end
   end
+
+  describe "#add" do
+    before(:all) do
+      create_test_environment
+    end
+
+    after(:all) do
+      destroy_test_environment
+    end
   
+    it "should add Tacos" do
+      lambda do
+        taco(:add, "-u git://github.com/foo/bar")
+      end.should change {
+        taco(:list).lines.count
+      }
+    end
+
+    it "should respond with an error if no Taco is added"
+  end
+
   it "should not re-add a Taco if it exists"
 
 end
