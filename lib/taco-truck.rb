@@ -28,6 +28,7 @@ class TacoTruck < Thor
   def add
     puts "Registering..."
     return puts "Error: Please provide all arguments" if options[:uri].nil?
+    return puts "Error: URI must be of a valid git repository" unless options[:uri].match(/^git:\/\//)
     File.open(taco_file, "a") do |file|
       file.write("\ntest|foo|bar")
     end

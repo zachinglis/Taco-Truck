@@ -64,7 +64,11 @@ describe "Taco" do
       taco(:add, "").should match(/Please provide all arguments/)
     end
     
-    it "should only accept a valid git URI"
+    it "should only accept a valid git URI" do
+      taco(:add, "-u http://notagitrepo.com").should match(/URI must be of a valid git repository/)
+    end
+    
+    it "should parse the repository and extract the name, description and author"
   end
 
   it "should not re-add a Taco if it exists"
