@@ -6,7 +6,7 @@ class TacoTruck < Thor
 
   # ./bin/taco hello --who yous -m "How are you?"
   desc "hello", "A Hello World method for debugging"
-  method_option :who, :type => :string, :aliases => "-s"
+  method_option :who,     :type => :string, :aliases => "-s"
   method_option :message, :type => :string, :aliases => "-m"
   def hello
     puts "Hello #{options[:who]}!!"
@@ -24,7 +24,7 @@ class TacoTruck < Thor
   end
 
   desc "add", "Register a git URI"
-  method_option :uri, :type => :string, :aliases => "-u"
+  method_option :uri,     :type => :string, :aliases => "-u"
   def add
     puts "Registering..."
     File.open(taco_file, "a") do |file|
