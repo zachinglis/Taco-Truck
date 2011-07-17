@@ -30,7 +30,7 @@ class TacoTruck < Thor
     return puts "Error: Please provide all arguments" if options[:uri].nil?
     return puts "Error: URI must be of a valid git repository" unless options[:uri].match(/^git:\/\//)
     File.open(taco_file, "a") do |file|
-      file.write("\ntest|foo|bar")
+      file.write(TacoTruck.parse_git(options[:uri]).join["|"])
     end
     puts "Registered!"
   end
@@ -47,6 +47,11 @@ class TacoTruck < Thor
   end
 
 protected
+  def self.parse_git(uri)
+    # ...
+    ["Yay", "It Works", "It really works"]
+  end
+
   def taco_dir
     if ENV["TACO_ENV"] == "test"
       File.join(Dir.pwd, "spec/fixtures/taco")
