@@ -55,14 +55,11 @@ describe "Taco" do
     end
 
     it "should add Tacos" do
-      begin
-        lambda do
-          @add = taco(:add, { :uri => "git://github.com/foo/bar.git" })
-        end.should change {
-          @result = taco(:list)
-          @result.lines.count
-        }
-      end
+      lambda do
+        taco(:add, { :uri => "git://github.com/foo/bar.git" })
+      end.should change {
+        taco(:list).lines.count
+      }
     end
 
     it "should respond with an error if no argument is given" do
@@ -74,15 +71,22 @@ describe "Taco" do
     end
 
     it "should parse the repository and extract the name, description and author" do
-      pending
-      # TacoTruck.should_receive(:parse_git).with("git://mockedrepo").and_return("daddy|Whos your daddy|daddy.com")
-      # Thor::TacoTruck.expects(:add).returns('something')
-      # taco = taco(:add, "-u git://mockedrepo")
-      # taco.should
+      TacoTruck.should_receive(:parse_git).with("git://mockedrepo").and_return(["Mocked Taco", "It works", "http://itworks.com"])
+      taco(:add, :uri => "git://mockedrepo")
+      taco(:list).should include("Mocked Taco")
+    end
+
+    it "should not re-add a Taco if it exists" do
+      TacoTruck.should_receive(:parse_git).with("git://doublysubmitted").twice.and_return(["Doubly Submitted", "It works alos", "http://itworks.com/labs/second"])
+      taco(:add, :uri => "git://doublysubmitted")
+
+      lambda do
+        taco(:add, :uri => "git://doublysubmitted")
+      end.should change {
+        taco(:list).lines.count
+      }
     end
   end
 
-
-  it "should not re-add a Taco if it exists"
-
+  # TODO: Test parse_git
 end
