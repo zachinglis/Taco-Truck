@@ -2,10 +2,10 @@ require 'rubygems'
 require 'spork'
 
 Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However, 
+  # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
-  
+
   $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
   $LOAD_PATH.unshift(File.dirname(__FILE__))
   require 'rspec'
@@ -26,8 +26,15 @@ Spork.each_run do
     end
   end
 
-  def taco(method, args="")
-    run "ENV TACO_ENV=test ./bin/taco #{method.to_s} #{args}"
+  def taco(method, args={})
+    args.merge!({
+      :environment => "test"
+    })
+    args_array = args.collect { |key, value| ["--#{key}", value] }.flatten
+
+    capture do
+      TacoTruck.start(Array(method) + args_array)
+    end
   end
 
   def run(command)
@@ -51,5 +58,18 @@ Spork.each_run do
 
   def destroy_test_environment
     `rm -rf #{taco_dir}`
+  end
+
+  def capture(stream=:stdout)
+    begin
+      stream = stream.to_s
+      eval "$#{stream} = StringIO.new"
+      yield
+      result = eval("$#{stream}").string
+    ensure
+      eval("$#{stream} = #{stream.upcase}")
+    end
+
+    result
   end
 end

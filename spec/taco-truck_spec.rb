@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
+# Remember to use
+# Thor::Actions
+
 describe "TacoTruck" do
   # describe "intially" do
   #   after(:each) do

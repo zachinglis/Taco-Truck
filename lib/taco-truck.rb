@@ -4,9 +4,11 @@ require "yaml"
 class TacoTruck < Thor
   include Thor::Actions
 
+  class_option :environment, :type => :string, :aliases => "-e"
+
   # ./bin/taco hello --who yous -m "How are you?"
   desc "hello", "A Hello World method for debugging"
-  method_option :who,     :type => :string, :aliases => "-s"
+  method_option :who,     :type => :string, :aliases => "-w"
   method_option :message, :type => :string, :aliases => "-m"
   def hello
     puts "Hello #{options[:who]}!!"
@@ -30,8 +32,9 @@ class TacoTruck < Thor
     return puts "Error: Please provide all arguments" if options[:uri].nil?
     return puts "Error: URI must be of a valid git repository" unless options[:uri].match(/^git:\/\//)
     File.open(taco_file, "a") do |file|
-      file.write(TacoTruck.parse_git(options[:uri]).join["|"])
+      file.write("\n" + TacoTruck.parse_git(options[:uri]).join("|"))
     end
+
     puts "Registered!"
   end
 
@@ -52,11 +55,16 @@ protected
     ["Yay", "It Works", "It really works"]
   end
 
+  def parse_git(uri)
+    # ...
+    ["Yay", "It Works", "It really works"]
+  end
+
   def taco_dir
-    if ENV["TACO_ENV"] == "test"
+    if options[:environment] == "test"
       File.join(Dir.pwd, "spec/fixtures/taco")
     else
-      File.join(Dir.home, ".taco")
+      File.join(File.expand_path("~"), ".taco")
     end
   end
 
