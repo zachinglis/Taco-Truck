@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 # TODO: turn match into include (as a string)
 # Remember to use
 # Thor::Actions
+# TODO: Serialize data properly
 
 describe TacoTruck do
   describe "#list" do
@@ -65,11 +66,15 @@ describe TacoTruck do
     end
 
     it "should respond with an error if no argument is given" do
-      taco(:add).should match(/Please provide all arguments/)
+      lambda do
+        taco(:add)
+      end.should raise_error(/Please provide all arguments/)
     end
 
     it "should only accept a valid git URI" do
-      taco(:add, :uri => "http://notagitrepo.com").should match(/URI must be of a valid git repository/)
+      lambda do
+        taco(:add, :uri => "http://notagitrepo.com")
+      end.should raise_error(/URI must be of a valid git repository/)
     end
 
     it "should parse the repository and extract the name, description and author" do
@@ -84,12 +89,23 @@ describe TacoTruck do
 
       lambda do
         taco(:add, :uri => "git://doublysubmitted")
-      end.should change {
+      end.should_not change {
         taco(:list).lines.count
       }
     end
 
+  end
 
+  describe ".git_name_from_repo" do
+    it "should bail gracefully" do
+      lambda do
+        TacoTruck.git_name_from_repo("garbledurl")
+      end.should raise_error
+    end
+
+    it "should find the correct name from a URL" do
+      TacoTruck.git_name_from_repo("git://github.com/clinteastwood/dirtyharry.github").should eql("dirtyharry")
+    end
   end
 
   # TODO: Test parse_git

@@ -54,6 +54,8 @@ Spork.each_run do
         file.write "Test Taco|This is a test Taco|http://foobar.com\nAnother Taco|This is yet another Taco|http://foo.com"
       end
     end
+  rescue
+    puts "Cool"
   end
 
   def destroy_test_environment
