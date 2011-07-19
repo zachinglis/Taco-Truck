@@ -78,13 +78,13 @@ describe TacoTruck do
     end
 
     it "should parse the repository and extract the name, description and author" do
-      TacoTruck.should_receive(:parse_git).with("git://mockedrepo").and_return(["Mocked Taco", "It works", "http://itworks.com"])
+      TacoTruck.any_instance.should_receive(:parse_git).with("git://mockedrepo").and_return(["Mocked Taco", "It works", "http://itworks.com"])
       taco(:add, :uri => "git://mockedrepo")
       taco(:list).should include("Mocked Taco")
     end
 
     it "should not re-add a Taco if it exists" do
-      TacoTruck.should_receive(:parse_git).with("git://doublysubmitted").twice.and_return(["Doubly Submitted", "It works alos", "http://itworks.com/labs/second"])
+      TacoTruck.any_instance.stub!(:parse_git).and_return(["Doubly Submitted", "It works alos", "http://itworks.com/labs/second"])
       taco(:add, :uri => "git://doublysubmitted")
 
       lambda do

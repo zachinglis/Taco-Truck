@@ -37,7 +37,7 @@ class TacoTruck < Thor
     raise "Error: Please provide all arguments" if options[:uri].nil?
     raise "Error: URI must be of a valid git repository" unless options[:uri].match(/^git:\/\//)
 
-    append_file taco_file, "\n#{TacoTruck.parse_git(options[:uri]).join("|")}"
+    append_file taco_file, "\n#{parse_git(options[:uri]).join("|")}"
 
     puts "Registered!"
   end
@@ -54,13 +54,13 @@ class TacoTruck < Thor
   end
 
 protected
-  def self.parse_git(uri)
+  def parse_git(uri)
     # TODO: For now, actually grabbing git needs to be done but is more complex, so pointing to the Github file will suffice for now.
-    # parse_git_file(uri)
+    parse_git_file(uri)
     ["Yay", "It Works", "It really works"]
   end
 
-  def self.parse_git_file(uri)
+  def parse_git_file(uri)
     inside(taco_tmp_dir) do
       clone = run "git clone #{uri}"
     end
