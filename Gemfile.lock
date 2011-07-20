@@ -23,6 +23,9 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.5)
     spork (0.8.5)
     thor (0.14.6)
 
@@ -37,5 +40,6 @@ DEPENDENCIES
   rb-fsevent
   rcov
   rspec (~> 2.6.0)
+  simplecov
   spork
   thor

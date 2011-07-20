@@ -9,6 +9,7 @@ group :development do
   gem "growl"
   gem "spork"
   gem "guard-rspec"
+  gem "simplecov"
 end
 
 gem "thor"

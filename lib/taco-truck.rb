@@ -1,6 +1,6 @@
 require "thor"
 require "yaml"
-
+require "taco"
 ## Todo: Don't forget say_status, etc
 
 class TacoTruck < Thor
@@ -55,6 +55,7 @@ class TacoTruck < Thor
 
 protected
   def parse_git(uri)
+    Taco.woop
     # TODO: For now, actually grabbing git needs to be done but is more complex, so pointing to the Github file will suffice for now.
     parse_git_file(uri)
     ["Yay", "It Works", "It really works"]

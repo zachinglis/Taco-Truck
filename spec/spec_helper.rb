@@ -1,5 +1,9 @@
-require 'rubygems'
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require 'spork'
+
+SimpleCov.start
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
@@ -43,11 +47,20 @@ Spork.each_run do
     result
   end
 
+  def fixtures_dir
+    File.join(Dir.pwd, "spec/fixtures")
+  end
+
+  def taco_tmp_dir
+    File.join(Dir.pwd, "spec/tmp")
+  end
+
   def taco_dir
-    File.join(Dir.pwd, "spec/fixtures/taco")
+    File.join(taco_tmp_dir, "/taco")
   end
 
   def create_test_environment(fixtures=true)
+    destroy_test_environment
     Dir.mkdir(taco_dir)
     File.open(File.join(taco_dir, "tacofile"), "w+") do |file|
       if fixtures == true
@@ -58,6 +71,12 @@ Spork.each_run do
 
   def destroy_test_environment
     `rm -rf #{taco_dir}`
+  end
+
+  def create_tacos
+    %w(sample).each do |name|
+      FileUtils.cp(File.join(fixtures_dir, "/#{name}.taco"), File.join(taco_tmp_dir, "/#{name}.taco"))
+    end
   end
 
   def capture(stream=:stdout)
