@@ -36,7 +36,6 @@ describe TacoTruck do
     end
 
     it "should notify if there is no Tacos" do
-      pending
       @response.should match(/No Tacos present/)
     end
   end
@@ -47,7 +46,6 @@ describe TacoTruck do
     end
 
     it "should add Tacos" do
-      pending
       lambda do
         taco(:add, { :uri => "git://github.com/foo/bar.git" })
       end.should change {
@@ -74,7 +72,6 @@ describe TacoTruck do
     end
 
     it "should not re-add a Taco if it exists" do
-      pending
       TacoTruck.any_instance.stub!(:parse_git).and_return(["Doubly Submitted", "It works alos", "http://itworks.com/labs/second"])
       taco(:add, :uri => "git://doublysubmitted")
 

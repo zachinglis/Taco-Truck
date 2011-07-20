@@ -52,7 +52,7 @@ Spork.each_run do
   end
 
   def taco_tmp_dir
-    File.join(Dir.pwd, "spec/tmp")
+    File.join(Dir.pwd, "spec/tmp/taco")
   end
 
   def taco_dir
@@ -61,8 +61,8 @@ Spork.each_run do
 
   def create_test_environment(fixtures=true)
     destroy_test_environment
-    Dir.mkdir(taco_dir)
-    File.open(File.join(taco_dir, "tacofile"), "w+") do |file|
+    Dir.mkdir(taco_tmp_dir)
+    File.open(File.join(taco_tmp_dir, "tacofile"), "w+") do |file|
       if fixtures == true
         file.write "Test Taco|This is a test Taco|http://foobar.com\nAnother Taco|This is yet another Taco|http://foo.com"
       end
@@ -70,7 +70,7 @@ Spork.each_run do
   end
 
   def destroy_test_environment
-    `rm -rf #{taco_dir}`
+    `rm -rf #{taco_tmp_dir}`
   end
 
   def create_tacos

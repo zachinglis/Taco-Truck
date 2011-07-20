@@ -67,7 +67,7 @@ protected
 
   def taco_dir
     if options[:environment] == "test"
-      File.join(Dir.pwd, "spec/fixtures/taco")
+      File.join(Dir.pwd, "spec/tmp/taco")
     else
       File.join(File.expand_path("~"), ".taco")
     end
