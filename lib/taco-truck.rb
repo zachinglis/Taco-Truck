@@ -10,17 +10,6 @@ class TacoTruck < Thor
 
   class_option :environment, :type => :string, :aliases => "-e"
 
-  # ./bin/taco hello --who yous -m "How are you?"
-  desc "hello", "A Hello World method for debugging"
-  method_option :who,     :type => :string, :aliases => "-w"
-  method_option :message, :type => :string, :aliases => "-m"
-  def hello
-    puts "Hello #{options[:who]}!!"
-    unless options[:message].nil?
-      puts "Also, #{options[:message]}"
-    end
-  end
-
   desc "install", "Install the Tacofiles"
   def install
     unless File.directory?(taco_dir)
@@ -55,7 +44,6 @@ class TacoTruck < Thor
 
 protected
   def parse_git(uri)
-    Taco.woop
     # TODO: For now, actually grabbing git needs to be done but is more complex, so pointing to the Github file will suffice for now.
     parse_git_file(uri)
     ["Yay", "It Works", "It really works"]
