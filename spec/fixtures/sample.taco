@@ -1,0 +1,19 @@
+Taco.describe do
+  title        "Sample Taco"
+  description "This is a sample Taco. It's meant to be a nice and clean way of writing a Taco templating code.
+
+  The description can be multilined."
+  uri         "http://zachinglis.com/sample"
+  repository  "git://github.com/foo/bar.git"
+
+  install do
+    # Thor actions
+    create_file "config/initializers/sample.rb" do
+      add_gem_declaration "sample"
+    end
+  end
+
+  after_install do
+    # ...
+  end
+end
