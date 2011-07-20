@@ -7,7 +7,7 @@ describe Taco do
 
   describe "attributes" do
     before(:each) do
-      file    = File.join(taco_tmp_dir, "/tacos/sample.taco")
+      file    = File.join(tmp_dir, "/sample.taco")
       @taco   = Taco.parse_file(file)
     end
 

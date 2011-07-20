@@ -25,7 +25,7 @@ end
 
 Spork.each_run do
   def in_temporary_folder(&block)
-    Dir.chdir("#{File.dirname(__FILE__)}/tmp") do
+    Dir.chdir(tmp_dir) do
       block.call
     end
   end
@@ -49,6 +49,10 @@ Spork.each_run do
 
   def fixtures_dir
     File.join(Dir.pwd, "spec/fixtures")
+  end
+
+  def tmp_dir
+    File.join(Dir.pwd, "spec/tmp")
   end
 
   def taco_tmp_dir
@@ -75,7 +79,7 @@ Spork.each_run do
 
   def create_tacos
     %w(sample).each do |name|
-      FileUtils.cp(File.join(fixtures_dir, "/#{name}.taco"), File.join(taco_tmp_dir, "/#{name}.taco"))
+      FileUtils.cp(File.join(fixtures_dir, "/#{name}.taco"), File.join(tmp_dir, "/#{name}.taco"))
     end
   end
 
